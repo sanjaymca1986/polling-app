@@ -1,0 +1,26 @@
+<div class="container">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User Id</th>
+          <th>Title</th>
+          
+        </tr>
+      </thead>
+      <tbody ng-if="counter % 2 == 0">
+        <tr *ngFor="let item of todoData">
+          <td>{{item.id}}</td>
+          <td>{{item.userId}}</td>
+          <td>{{item.title}}</td>
+        </tr>
+      </tbody>
+      <tbody ng-if="counter % 2 != 0">
+        <tr *ngFor="let item of postData">
+          <td>{{item.id}}</td>
+          <td>{{item.userId}}</td>
+          <td>{{item.title}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
