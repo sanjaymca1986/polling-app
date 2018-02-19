@@ -53,17 +53,13 @@ describe('AppComponent', () => {
     expect(app.counter).toEqual(1);
   }));
 
-  describe("Manually ticking the Jasmine Clock", function () {
+  describe("Manually ticking the Jasmine Clock to check interval related code: ", function () {
     
     beforeEach(function () {
       jasmine.clock().install();
     });
 
-    beforeEach(function () {
-      jasmine.clock().install();
-    });
-    
-    it("causes a timeout to be called synchronously", function () {
+    it("causes a timeout to be called synchronously which should increate counter variable by one", function () {
       const fixture = TestBed.createComponent(AppComponent);
       const app = fixture.debugElement.componentInstance;
       const todoServiceApi = fixture.debugElement.injector.get(TodoService);
