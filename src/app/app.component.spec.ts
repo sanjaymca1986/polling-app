@@ -53,24 +53,34 @@ describe('AppComponent', () => {
     expect(app.counter).toEqual(1);
   }));
 
+  describe("Manually ticking the Jasmine Clock", function () {
+    
+    beforeEach(function () {
+      jasmine.clock().install();
+    });
 
-  //Error: 1 periodic timer(s) still in the queue.
-  it(`should have counter value incremented by 1 on every 20sec`, fakeAsync(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    const todoServiceApi = fixture.debugElement.injector.get(TodoService);
-    spyOn(todoServiceApi, 'get').and.returnValue(Observable.of(todoData));
-    const postServiceApi = fixture.debugElement.injector.get(PostService);
-    spyOn(postServiceApi, 'get').and.returnValue(Observable.of(postData));
-    app.ngOnInit();
-    expect(app.counter).toEqual(1);
-    tick(20000);
-    expect(app.counter).toEqual(2);
-    tick(20000);
-    expect(app.counter).toEqual(3);
-    tick(20000);
-    expect(app.counter).toEqual(4);
-  }));
+    beforeEach(function () {
+      jasmine.clock().install();
+    });
+    
+    it("causes a timeout to be called synchronously", function () {
+      const fixture = TestBed.createComponent(AppComponent);
+      const app = fixture.debugElement.componentInstance;
+      const todoServiceApi = fixture.debugElement.injector.get(TodoService);
+      spyOn(todoServiceApi, 'get').and.returnValue(Observable.of(todoData));
+      const postServiceApi = fixture.debugElement.injector.get(PostService);
+      spyOn(postServiceApi, 'get').and.returnValue(Observable.of(postData));
+      app.ngOnInit();
+      expect(app.counter).toEqual(1);
+      jasmine.clock().tick(20000);
+      expect(app.counter).toEqual(2);
+      jasmine.clock().tick(20000);
+      expect(app.counter).toEqual(3);
+    });
+    afterEach(function () {
+      jasmine.clock().uninstall();
+    });
+  });
 
   describe(' HTML related tests: ', () => {
     it('Table should have 3 header', async(() => {
